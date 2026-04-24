@@ -31,6 +31,7 @@ function ApexPage({ accent, theme, typePreset }) {
       <Hero C={C} mono={mono} display={display} italicize={italicize} t={t} PAD={PAD} MAX={MAX} />
       <PriceCompare C={C} mono={mono} display={display} italicize={italicize} PAD={PAD} MAX={MAX} />
       <Presets C={C} mono={mono} display={display} italicize={italicize} t={t} PAD={PAD} MAX={MAX} />
+      <TryIt C={C} mono={mono} display={display} italicize={italicize} t={t} PAD={PAD} MAX={MAX} />
       <Studio C={C} mono={mono} display={display} italicize={italicize} t={t} PAD={PAD} MAX={MAX} />
       <Install C={C} mono={mono} display={display} italicize={italicize} PAD={PAD} MAX={MAX} />
       <Vehicles C={C} mono={mono} display={display} italicize={italicize} PAD={PAD} MAX={MAX} />
@@ -283,6 +284,55 @@ function Presets({ C, mono, display, italicize, t, PAD, MAX }) {
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+// ───── Try It · interactive emulator ─────
+function TryIt({ C, mono, display, italicize, t, PAD, MAX }) {
+  return (
+    <section style={{ background: C.bg, color: C.fg, padding: '120px 0', borderTop: `1px solid ${C.hair}` }}>
+      <div style={{ maxWidth: MAX, margin: '0 auto', padding: PAD }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'flex-end', marginBottom: 56 }} className="tryit-head">
+          <div>
+            <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 4, color: C.accent, marginBottom: 12, textTransform: 'uppercase' }}>/ Hands-on · live device emulator</div>
+            <h2 style={{ fontSize: 'clamp(44px, 5.6vw, 80px)', lineHeight: 0.95, margin: 0, fontWeight: 500, letterSpacing: '-0.03em' }}>
+              Tap to <span style={{ color: C.accent, ...italicize }}>try it.</span>
+            </h2>
+          </div>
+          <p style={{ fontSize: 17, lineHeight: 1.6, color: C.dim, margin: 0, maxWidth: 520, justifySelf: 'end' }}>
+            This is the real RDM-7 firmware UI, running in your browser. Tap the screen — a menu button appears in the corner. From there you can switch layouts and dive into every device setting. No install, no hardware required.
+          </p>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <DeviceFrame width={1100} theme="dark">
+            <DashEmulator t={t} accent={C.accent} />
+          </DeviceFrame>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginTop: 56 }} className="tryit-hints">
+          {[
+            ['1', 'Tap the dash', 'A menu button appears top-right. Auto-hides after a few seconds.'],
+            ['2', 'Switch layouts', 'Daily, Shift focus or the upcoming Track mode — instant swap.'],
+            ['3', 'Open settings', 'Brightness, ECU, CAN bus, Wi-Fi — every option exposed and live.'],
+          ].map(([n, h, d]) => (
+            <div key={n} style={{ borderTop: `1px solid ${C.hairStrong}`, paddingTop: 16 }}>
+              <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 2, color: C.accent }}>{n}</div>
+              <div style={{ fontSize: 20, fontWeight: 600, letterSpacing: '-0.01em', marginTop: 6 }}>{h}</div>
+              <p style={{ fontSize: 14, color: C.dim, lineHeight: 1.55, marginTop: 8 }}>{d}</p>
+            </div>
+          ))}
+        </div>
+
+        <style>{`
+          @media (max-width: 900px) {
+            .tryit-head { grid-template-columns: 1fr !important; gap: 24px !important; align-items: flex-start !important; }
+            .tryit-head p { justify-self: start !important; }
+            .tryit-hints { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
       </div>
     </section>
   );
